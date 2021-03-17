@@ -1,58 +1,91 @@
 #! /bin/python3
 #  Spring 2020 (PJW)
 
-import csv
-import json 
-import numpy as np
-from collections import defaultdict
+import pandas as pd
+import matplotlib.pyplot as plt
 
-data = [
-   'date,state,pop\n',
-   '02/03,IA,3106589\n',
-   '02/11,NH,1327503\n',
-   '02/22,NV,2839172\n',
-   '02/29,SC,4834605\n',
-   '03/01,AL,4841164\n',
-   '03/01,AR,2968472\n',
-   '03/01,CA,38654206\n',
-   '03/01,CO,5359295\n',
-   '03/01,ME,1329923\n',
-   '03/01,MA,6742143\n',
-   '03/01,MN,5450868\n',
-   '03/01,NC,9940828\n',
-   '03/01,OK,3875589\n',
-   '03/01,TN,6548009\n',
-   '03/01,TX,26956435\n',
-   '03/01,UT,2948427\n',
-   '03/01,VT,626249\n',
-   '03/01,VA,8310301\n'
-   ]
+#
+#  Read the geocodes data
+#
 
-def newobj():
-    new_object = {
-        'states':[],
-        'pops':[]}
-    return new_object 
+geocodes = pd.read_csv('state-geocodes.csv',dtype=str)
+geocodes = geocodes.set_index('Name')
 
-inp_reader = csv.DictReader(data)
+#
+#  Read the population and income data
+#
+                       
+state_data = pd.read_csv('state-data.csv',index_col='name')
 
-primaries = defaultdict(newobj)
+#%%
+#
+#  Merge the geocode data into the state_data dataframe
+#
 
-for rec in inp_reader:
-    this_date = rec['date']
-    this_state = rec['state']
-    this_pop = rec['pop']
-    
-    prime_obj = primaries[this_date]
-    prime_obj['states'].append( this_state )
-    prime_obj['pops'].append( float(this_pop) )
-    
-print('\nPrimaries data object:\n')
+for col in geocodes.columns:
+    state_data[col] = geocodes[col]
 
-print( json.dumps(primaries,indent=4))
-    
-print('\nPrimary dates and populations voting:\n')
-for date in sorted(primaries):
-    pop_list = primaries[date]['pops']
-    state_list = " ".join(primaries[date]['states'])
-    print( date, round(np.sum(pop_list)/1e6,1) )
+#%%
+#
+#  Group by region
+#
+
+by_reg = state_data.groupby('Region') 
+
+print( by_reg )
+
+#
+#  Grab the populations and sum them
+#
+
+reg_pop = by_reg['pop'].sum()/1e6
+
+print( reg_pop )
+
+#%%
+#
+#  Simple plot
+#
+
+plt.figure()
+ax = reg_pop.plot.bar()
+
+#%%
+#
+#  Population by division
+#
+
+by_div = state_data.groupby('Division') 
+
+div_pop = by_div['pop'].sum()/1e6
+
+#%%
+#
+#  Rename the index values
+#
+
+div_names = {
+    '1':'New England',
+    '2':'Middle Atlantic',
+    '3':'East North Central',
+    '4':'West North Central',
+    '5':'South Atlantic',
+    '6':'East South Central',
+    '7':'West South Central',
+    '8':'Mountain',
+    '9':'Pacific'
+    }
+
+div_pop = div_pop.rename(index=div_names)
+
+print( div_pop )
+
+#%%
+#
+#  Plot a nicer figure
+#
+
+plt.figure()
+ax = div_pop.plot.barh()
+ax.set_xlabel('Millions')
+ax.set_title('Population')
