@@ -14,7 +14,7 @@ Each of the records has 20 fields (columns). The ones we'll use are: "TOTAL_AV",
 
 ### Deliverables
 
-A script called **parcels.py** that goes through the steps below. It will produce a figure and a CSV file called `parcels.csv` with summary information about residential housing in each zip code in the county. You'll also submit a short Markdown file called **results.md** with some observations about the results. Note that `parcels.csv` itself is not a deliverable and will not be uploaded to GitHub.
+A script called **parcels.py** that goes through the steps below. It will produce a figure and a CSV file called `parcels.csv` with summary information about residential housing in each zip code in the county. You'll also submit a short Markdown file called **results.md** with some observations about the results. 
 
 ### Instructions
 
