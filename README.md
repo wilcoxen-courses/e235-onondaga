@@ -1,10 +1,10 @@
 # Exercise: Analyzing Residential Property by Zip Code
 
-### Summary
+## Summary
 
 This exercise uses parcel-level property tax data from New York State to explore residential property values by zip code in Onondaga County.
 
-### Input Data
+## Input Data
 
 The input data is a file called **onondaga-tax-parcels.zip** that will need to be downloaded from the course Google Drive folder. It *does not* need to be unzipped: you'll read the data from it directly using Pandas.
 
@@ -12,11 +12,11 @@ The zip file contains a single large CSV file called `onondaga-tax-parcels.csv`.
 
 Each of the records has 20 fields (columns). The ones we'll use are: "TOTAL_AV", the total assessed value of the parcel in dollars (it's the total in the sense that it is the sum of the values of the land itself and the buildings on it); "SQFT_LIV", the size of the living area in square feet; "NBR_BEDRM", the number of bedrooms; "YR_BLT", the year the house was built; "CALC_ACRES", the size of the property in acres; "PROP_CLASS", which indicates the classification of the parcel as agricultural, commercial, residential, or various other categories; and "ZCTA5CE10", which is the 5-digit zip code for the property. ZCTA5 is a US Census designation that stands for "zip code tabulation area at the 5-digit level" and CE10 indicates that the zip code boundaries correspond to those that were in place during the 2010 census. There are other variables in the file (and even more in the original master) but those are the only ones we'll use for this exercise. The first few lines are available in `firstlines.csv` in the Google Drive folder.
 
-### Deliverables
+## Deliverables
 
-A script called **parcels.py** that goes through the steps below. It will produce a figure and a CSV file called `parcels.csv` with summary information about residential housing in each zip code in the county. You'll also submit a short Markdown file called **results.md** with some observations about the results. 
+A script called **parcels.py** that goes through the steps below. It will produce a figure and a CSV file called `parcels.csv` with summary information about residential housing in each zip code in the county. You'll also submit a short Markdown file called **results.md** with some observations about the results.
 
-### Instructions
+## Instructions
 
 1. Import `pandas` as `pd` and import `matplotlib.pyplot` as `plt`. In case you're curious, import statements can be included in any order.
 
@@ -52,7 +52,7 @@ A script called **parcels.py** that goes through the steps below. It will produc
 
 1. Now create a list called `attr` that consists of the strings `"SQFT_LIV"`, `"NBR_BEDRM"`, `"YR_BLT"`, and `"CALC_ACRES"`. It will be used to pick out those characteristics of each residential parcel.
 
-1. Create a dataframe called `summary` by calling `.median()` on `by_zip[attr]`. The result will have one column for each variable in `attr` and one row for each zip code. As you might expect, each value will be the median for corresponding variable in the corresponding zip code.
+1. Create a dataframe called `summary` by calling `.median()` on `by_zip[attr]`. That will aggregate the grouped data by zip code: the result will have one column for each variable in `attr` and one row for each zip code. As you might expect, each value will be the median for corresponding variable in the corresponding zip code.
 
 1. Round the medians to two decimal places by setting `summary` to the result of calling `.round()` on `summary` with argument `2`.
 
@@ -74,30 +74,28 @@ A script called **parcels.py** that goes through the steps below. It will produc
 
 1. Write the results to the output file by calling `.to_csv()` on `summary` with argument `"parcels.csv"`.
 
-1. Now call `plt.figure()` to initialize a figure.
+1. Now set a tuple consisting of variables `fig1` and `ax1` to the result of calling `plt.subplots()`. That creates a new blank figure (`fig1`) with a single set of drawing axes (`ax1`).
 
-1. Set `ax` to the result of calling `.plot.scatter()` on `summary` with three arguments: `"YR_BLT"`, `"SQFT_LIV"`, and `s="50%"`. Note that `s` is a keyword argument and should not be in quotes. The result will be a scatter plot with `"YR_BLT"` on the horizontal axis, `"SQFT_LIV"` on the vertical axis, and with the size of the dots scaled by the median value, `"50%"`.
+1. Then call `.plot.scatter()` on `summary` with four arguments: `"YR_BLT"`, `"SQFT_LIV"`, `s="50%"`, and `ax=ax1`. Note that `s` is a keyword argument and should not be in quotes. The last argument, `ax=ax1` causes the plot to be drawn on the axes set up in the previous step. The result will be a scatter plot with `"YR_BLT"` on the horizontal axis, `"SQFT_LIV"` on the vertical axis, and with the size of the dots scaled by the median value, `"50%"`.
 
-1. Set the title by calling `.set_title()` on `ax` with argument `"Characteristics of Zip Codes"`.
+1. Set the title by calling `.set_title()` on `ax1` with argument `"Characteristics of Zip Codes"`.
 
-1. Save the figure by calling `.figure.savefig()` on `ax` with two arguments: `"parcels.png"` and `dpi=300`. The `dpi` argument sets the resolution of the figure to 300 dots per inch, which is sharper than the default.
+1. Finalize the formatting of the figure by calling `.tight_layout()` on `fig1`. That fine-tunes the spacing of labels and axes in figures to make sure that everything fits properly. It's not really needed here but is definitely needed in later assignments and it's a good practice in general.
+
+1. Save the figure by calling `fig1.savefig()` with two arguments: `"parcels.png"` and `dpi=300`. The `dpi` argument sets the resolution of the figure to 300 dots per inch, which is sharper than the default.
 
 1. Edit the `results.md` file and replace the TBD placeholder with a few notes on the results. There's nothing specific you need to mention; rather, just spend a few minutes looking over the output and say a little about some things you think are interesting.
 
-### Submitting
+## Submitting
 
 Once you're happy with everything and have committed all of the changes to
 your local repository, please push the changes to GitHub. At that point,
 you're done: you have submitted your answer.
 
-### Tips
+## Tips
 
 + The `dtype` argument is used to tell `read_csv()` what datatype it should use for some or all of the columns in the file. When given a dictionary, `read_csv()` will use the indicated datatype for any columns that have keys in the database, and will determine on its own what the data type should be for all the other columns. Here we're telling it to use strings for the zip codes, which it would otherwise treat as numeric data. It's a very good practice to always treat zip codes as strings because some zip codes begin with 0's. It's the same reason that FIPS codes should always be strings.
 
-+ In later exercises we'll join this data to information from the Census
-and other sources to examine the county in more detail. We'll also
-map it using GIS.
++ In later exercises we'll join this data to information from the Census and other sources to examine the county in more detail. We'll also map it using GIS.
 
-+ Data on all tax parcels in New York State is available from the NYS
-geographic information system (GIS) data repository. A link is available
-from the resources section of the class web page.
++ Data on all tax parcels in New York State is available from the NYS geographic information system (GIS) data repository. A link is available from the resources section of the class web page.

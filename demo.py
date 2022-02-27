@@ -1,5 +1,9 @@
-#! /bin/python3
-#  Spring 2020 (PJW)
+"""
+demo.py
+Spring 2022 PJW
+
+Demonstate features of Pandas and Matplotlib.
+"""
 
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -14,7 +18,7 @@ geocodes = geocodes.set_index('Name')
 #
 #  Read the population and income data
 #
-                       
+
 state_data = pd.read_csv('state-data.csv',index_col='name')
 
 #%%
@@ -30,7 +34,7 @@ for col in geocodes.columns:
 #  Group by region
 #
 
-by_reg = state_data.groupby('Region') 
+by_reg = state_data.groupby('Region')
 
 print( by_reg )
 
@@ -44,18 +48,19 @@ print( reg_pop )
 
 #%%
 #
-#  Simple plot
+#  Very basic plot. First set up a blank figure and set of
+#  axes (fig1 and ax1) and then draw the plot on ax1.
 #
 
-plt.figure()
-ax = reg_pop.plot.bar()
+fig1, ax1 = plt.subplots()
+reg_pop.plot.bar(ax=ax1)
 
 #%%
 #
 #  Population by division
 #
 
-by_div = state_data.groupby('Division') 
+by_div = state_data.groupby('Division')
 
 div_pop = by_div['pop'].sum()/1e6
 
@@ -85,7 +90,15 @@ print( div_pop )
 #  Plot a nicer figure
 #
 
-plt.figure()
-ax = div_pop.plot.barh()
-ax.set_xlabel('Millions')
-ax.set_title('Population')
+fig1, ax1 = plt.subplots()
+div_pop.plot.barh(ax=ax1)
+
+#  Add some labels and titles
+
+ax1.set_xlabel('Millions')
+ax1.set_title('Population')
+
+#  Clean up the layout and save it
+
+fig1.tight_layout()
+fig1.savefig('figure.png')
