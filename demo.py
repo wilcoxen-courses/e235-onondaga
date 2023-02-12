@@ -23,7 +23,7 @@ state_data = pd.read_csv('state-data.csv',index_col='name')
 
 #%%
 #
-#  Merge the geocode data into the state_data dataframe
+#  Merge the geocode data into the state_data dataframe by index
 #
 
 for col in geocodes.columns:
@@ -87,10 +87,13 @@ print( div_pop )
 
 #%%
 #
-#  Plot a nicer figure
+#  Plot a nicer figure. Sort bars by length from largest to smallest. The bars 
+#  will be plotted starting from the top of the dataframe, so counterintuitively 
+#  this puts the longest bars at the bottom of the figure.
 #
 
 fig1, ax1 = plt.subplots()
+div_pop = div_pop.sort_values(ascending=False)
 div_pop.plot.barh(ax=ax1)
 
 #  Add some labels and titles
