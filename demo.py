@@ -9,6 +9,11 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 #
+#  Set the default resolution for plots to 300 DPI
+
+plt.rcParams['figure.dpi'] = 300
+
+#
 #  Read the geocodes data
 #
 
@@ -54,7 +59,7 @@ print( reg_pop )
 
 fig1, ax1 = plt.subplots()
 reg_pop.plot.bar(ax=ax1)
-ax1.set_ylabel("Millions")
+ax1.set_ylabel("Population, Millions")
 
 #%%
 #
