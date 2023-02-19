@@ -54,6 +54,7 @@ print( reg_pop )
 
 fig1, ax1 = plt.subplots()
 reg_pop.plot.bar(ax=ax1)
+ax1.set_ylabel("Millions")
 
 #%%
 #
@@ -87,16 +88,17 @@ print( div_pop )
 
 #%%
 #
-#  Plot a nicer figure. Sort bars by length from largest to smallest. The bars 
-#  will be plotted starting from the top of the dataframe, so counterintuitively 
+#  Plot a nicer figure. Sort bars by length from largest to smallest. The bars
+#  will be plotted starting from the top of the dataframe, so counterintuitively
 #  this puts the longest bars at the bottom of the figure.
 #
 
 fig1, ax1 = plt.subplots()
+
 div_pop = div_pop.sort_values(ascending=False)
 div_pop.plot.barh(ax=ax1)
 
-#  Add some labels and titles
+#  Add some labels and titles to the Axes object ax1
 
 ax1.set_xlabel('Millions')
 ax1.set_title('Population')
