@@ -51,6 +51,13 @@ reg_pop = by_reg['pop'].sum()/1e6
 
 print( reg_pop )
 
+#
+#  Print the total population using commas for grouping
+#
+
+tot_pop = state_data['pop'].sum()
+print(f'Total population: {tot_pop:,}')
+
 #%%
 #
 #  Very basic plot. First set up a blank figure and set of

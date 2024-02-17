@@ -46,7 +46,9 @@ A script called **parcels.py** that goes through the steps below. It will produc
 
 1. Set `tot_bil` to the value of calling `.sum()` on the `"value_k"` column of `res` and then dividing by `1e6`. The result will be the total value of property in Onondaga County in billions of dollars. Note that the division is by 1e6 rather than 1e9 because the values are already in thousands.
 
-1. Use three print statements to write out the three values just calculated, each with a short informative message indicating what it is.
+1. Print out `tot_n` using an f-string with the label "Residential parcels:" and use comma grouping (so it looks like this: 123,345).
+
+1. Use two additional print statements to write out `mean_k` and `tot_bil`, each with a short informative message indicating what it is.
 
 1. Now group the records by zip code by setting `by_zip` to the result of calling `.groupby()` on `res` with the argument `"zipcode"`.
 
