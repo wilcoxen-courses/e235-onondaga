@@ -28,7 +28,7 @@ state_data = pd.read_csv('state-data.csv',index_col='name')
 
 #%%
 #
-#  Merge the geocode data into the state_data dataframe by index
+#  Copy the geocode data into the state_data dataframe aligning via the index
 #
 
 for col in geocodes.columns:
