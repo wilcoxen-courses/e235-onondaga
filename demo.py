@@ -65,8 +65,8 @@ print(f'Total population: {tot_pop:,}')
 #
 
 fig1, ax1 = plt.subplots()
-reg_pop.plot.bar(ax=ax1)
-ax1.set_ylabel("Population, Millions")
+reg_pop.plot.bar(title='Population',ax=ax1)
+ax1.set_ylabel("Millions")
 
 #%%
 #
@@ -108,12 +108,11 @@ print( div_pop )
 fig1, ax1 = plt.subplots()
 
 div_pop = div_pop.sort_values(ascending=False)
-div_pop.plot.barh(ax=ax1)
+div_pop.plot.barh(title='Population',ax=ax1)
 
 #  Add some labels and titles to the Axes object ax1
 
 ax1.set_xlabel('Millions')
-ax1.set_title('Population')
 
 #  Clean up the layout and save it
 
