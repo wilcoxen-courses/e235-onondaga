@@ -105,16 +105,16 @@ print( div_pop )
 #  this puts the longest bars at the bottom of the figure.
 #
 
-fig1, ax1 = plt.subplots()
+fig2, ax2 = plt.subplots()
 
 div_pop = div_pop.sort_values(ascending=False)
-div_pop.plot.barh(title='Population',ax=ax1)
+div_pop.plot.barh(title='Population',ax=ax2)
 
-#  Add some labels and titles to the Axes object ax1
+#  Add some labels and titles to the Axes object ax2
 
-ax1.set_xlabel('Millions')
+ax2.set_xlabel('Millions')
 
 #  Clean up the layout and save it
 
-fig1.tight_layout()
-fig1.savefig('figure.png')
+fig2.tight_layout()
+fig2.savefig('figure.png')
