@@ -66,7 +66,7 @@ print(f'Total population: {tot_pop:,}')
 
 fig1, ax1 = plt.subplots()
 reg_pop.plot.bar(title='Population',ax=ax1)
-ax1.set_ylabel("Millions")
+ax1.set_ylabel('Millions')
 
 #%%
 #
