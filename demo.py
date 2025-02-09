@@ -2,7 +2,7 @@
 demo.py
 Spring 2022 PJW
 
-Demonstate features of Pandas and Matplotlib.
+Demonstrate features of Pandas and Matplotlib.
 """
 
 import pandas as pd
@@ -31,15 +31,29 @@ state_data = pd.read_csv('state-data.csv',index_col='name')
 #  Copy the geocode data into the state_data dataframe aligning via the index
 #
 
-for col in geocodes.columns:
-    state_data[col] = geocodes[col]
+for col in state_data.columns:
+    geocodes[col] = state_data[col]
+
+#
+#  Washington, DC will have missing data: it's in the geocodes list but not
+#  the state data list
+#
+
+print(geocodes)
+
+#
+#  Trim to just states with data
+#
+
+merged = geocodes.dropna()
+print("\nRows dropped by dropna call:",len(geocodes)-len(merged))
 
 #%%
 #
 #  Group by region
 #
 
-by_reg = state_data.groupby('Region')
+by_reg = merged.groupby('Region')
 
 print( by_reg )
 
@@ -55,7 +69,7 @@ print( reg_pop )
 #  Print the total population using commas for grouping
 #
 
-tot_pop = state_data['pop'].sum()
+tot_pop = merged['pop'].sum()
 print(f'Total population: {tot_pop:,}')
 
 #%%
@@ -73,7 +87,7 @@ ax1.set_ylabel('Millions')
 #  Population by division
 #
 
-by_div = state_data.groupby('Division')
+by_div = merged.groupby('Division')
 
 div_pop = by_div['pop'].sum()/1e6
 
