@@ -78,9 +78,9 @@ print(f'Total population: {tot_pop:,}')
 #  axes (fig1 and ax1) and then draw the plot on ax1.
 #
 
-fig1, ax1 = plt.subplots()
-reg_pop.plot.bar(title='Population',ax=ax1)
-ax1.set_ylabel('Millions')
+fig, ax = plt.subplots()
+reg_pop.plot.bar(title='Population',ax=ax)
+ax.set_ylabel('Millions')
 
 #%%
 #
@@ -119,16 +119,16 @@ print( div_pop )
 #  this puts the longest bars at the bottom of the figure.
 #
 
-fig2, ax2 = plt.subplots()
+fig, ax = plt.subplots()
 
 div_pop = div_pop.sort_values(ascending=False)
-div_pop.plot.barh(title='Population',ax=ax2)
+div_pop.plot.barh(title='Population',ax=ax)
 
 #  Add some labels and titles to the Axes object ax2
 
-ax2.set_xlabel('Millions')
+ax.set_xlabel('Millions')
 
 #  Clean up the layout and save it
 
-fig2.tight_layout()
-fig2.savefig('figure.png')
+fig.tight_layout()
+fig.savefig('figure.png')

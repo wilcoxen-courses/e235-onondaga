@@ -76,15 +76,15 @@ A script called **parcels.py** that goes through the steps below. It will produc
 
 1. Write the results to the output file by calling `.to_csv()` on `summary` with argument `"parcels.csv"`.
 
-1. Now set a tuple consisting of variables `fig1` and `ax1` to the result of calling `plt.subplots()`. That creates a new blank figure (`fig1`) with a single set of drawing axes (`ax1`).
+1. Now set a tuple consisting of variables `fig` and `ax` to the result of calling `plt.subplots()`. That creates a new blank figure (`fig`) with a single set of drawing axes (`ax`).
 
-1. Then call `.plot.scatter()` on `summary` with four arguments: `"YR_BLT"`, `"SQFT_LIV"`, `s="50%"`, and `ax=ax1`. Note that `s` is a keyword argument and should not be in quotes. The last argument, `ax=ax1` causes the plot to be drawn on the axes set up in the previous step. The result will be a scatter plot with `"YR_BLT"` on the horizontal axis, `"SQFT_LIV"` on the vertical axis, and with the size of the dots scaled by the median value, `"50%"`.
+1. Then call `.plot.scatter()` on `summary` with four arguments: `"YR_BLT"`, `"SQFT_LIV"`, `s="50%"`, and `ax=ax`. Note that `s` is a keyword argument and should not be in quotes. The last argument, `ax=ax` causes the plot to be drawn on the axes set up in the previous step. The result will be a scatter plot with `"YR_BLT"` on the horizontal axis, `"SQFT_LIV"` on the vertical axis, and with the size of the dots scaled by the median value, `"50%"`.
 
-1. Set the title by calling `.set_title()` on `ax1` with argument `"Characteristics of Zip Codes"`.
+1. Set the title by calling `.set_title()` on `ax` with argument `"Characteristics of Zip Codes"`.
 
-1. Finalize the formatting of the figure by calling `.tight_layout()` on `fig1`. That fine-tunes the spacing of labels and axes in figures to make sure that everything fits properly. It's not really needed here but is definitely needed in later assignments and it's a good practice in general.
+1. Finalize the formatting of the figure by calling `.tight_layout()` on `fig`. That fine-tunes the spacing of labels and axes in figures to make sure that everything fits properly. It's not really needed here but is definitely needed in later assignments and it's a good practice in general.
 
-1. Save the figure by calling `fig1.savefig()` with two arguments: `"parcels.png"` and `dpi=300`. The `dpi` argument sets the resolution of the figure to 300 dots per inch, which is sharper than the default.
+1. Save the figure by calling `fig.savefig()` with two arguments: `"parcels.png"` and `dpi=300`. The `dpi` argument sets the resolution of the figure to 300 dots per inch, which is sharper than the default.
 
 1. Edit the `results.md` file and replace the TBD placeholder with a few notes on the results. There's nothing specific you need to mention; rather, just spend a few minutes looking over the output and say a little about some things you think are interesting.
 
